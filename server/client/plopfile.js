@@ -11,7 +11,7 @@ module.exports = (plop) => {
         type: "input",
         name: "where",
         message:
-          "Where would you like your component placed? Relative to src/components. E.g auth/signin",
+          "Where would you like your component placed? Relative to src/components. E.g. auth/signin:",
       },
     ],
     actions: [
@@ -54,7 +54,7 @@ module.exports = (plop) => {
         path: "src/components/index.tsx",
         // Pattern tells plop where in the file to inject the template
         pattern: `/* PLOP_INJECT_IMPORT */`,
-        template: `import {{pascalCase name}} from './{{pascalCase name}}';`,
+        template: `import {{pascalCase name}} from './{{where}}/{{pascalCase name}}';`,
       },
       {
         type: "append",
