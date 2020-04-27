@@ -1,13 +1,13 @@
 import React from 'react';
 import { render, cleanup } from '@testing-library/react';
 
-import TraineeHome from './TraineeHome';
+import Header from './Header';
 
 afterEach(cleanup);
 
-describe('<TraineeHome />', () => {
+describe('<Header />', () => {
   test('renders', () => {
-    const { container } = render(<TraineeHome myProp="" />);
+    const { container } = render(<Header myProp="" />);
     expect(container).toMatchSnapshot();
   });
 });
