@@ -4,6 +4,5 @@ export interface User {
   firstName: string;
   lastName: string;
   googleId: string;
-  __v: number;
   _id: string;
 }

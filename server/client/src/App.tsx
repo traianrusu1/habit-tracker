@@ -3,16 +3,10 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import * as actions from "./actions";
 
-import { Header } from "./components";
+import { Header, Landing, Dashboard } from "./components";
 
-const Dashboard = () => {
-  return <h2>Dashboard</h2>;
-};
 const Detail = () => {
   return <h2>Detail</h2>;
-};
-const Landing = () => {
-  return <h2>Landing</h2>;
 };
 
 const App = () => {

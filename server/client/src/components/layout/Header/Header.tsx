@@ -4,6 +4,7 @@ import styles from "./Header.module.scss";
 import { RootState, AuthStates } from "../../../store/auth/types";
 import { createSelector } from "reselect";
 import { User } from "../../../interfaces/User";
+import { Link } from "react-router-dom";
 
 interface Props {
   myProp: string;
@@ -26,9 +27,14 @@ const Header: React.FC<Props> = ({ myProp }: Props) => {
         );
       default:
         return (
-          <li>
-            <a href="/api/Logout">Logout</a>
-          </li>
+          <>
+            {/* <li>
+              <a href="#">Add</a>
+            </li> */}
+            <li>
+              <a href="/api/Logout">Logout</a>
+            </li>
+          </>
         );
     }
   };
@@ -36,9 +42,12 @@ const Header: React.FC<Props> = ({ myProp }: Props) => {
   return (
     <nav>
       <div className="nav-wrapper">
-        <a href="/" className="brand-logo left">
+        <Link
+          to={auth.status === AuthStates.LoggedIn ? "/habits" : "/"}
+          className="brand-logo left"
+        >
           HabitPro
-        </a>
+        </Link>
         <ul id="nav-mobile" className="right ">
           {renderContent(auth)}
           {/* <li>
