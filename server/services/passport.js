@@ -25,11 +25,11 @@ passport.use(
     },
     async (req, accessToken, refreshToken, profile, done) => {
       const accountType = req.session.accountType;
-      console.log("--------------------------------------------");
-      console.log("--------------------------------------------");
-      console.log("--------------------------------------------");
-      console.log("--------------------------------------------");
-      console.log(accountType);
+      // console.log("--------------------------------------------");
+      // console.log("--------------------------------------------");
+      // console.log("--------------------------------------------");
+      // console.log("--------------------------------------------");
+      // console.log(accountType);
 
       const existingUser = await User.findOne({
         googleId: profile.id,

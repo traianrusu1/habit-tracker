@@ -4,11 +4,11 @@ module.exports = (app) => {
   app.get(
     "/auth/google",
     (req, res, next) => {
-      console.log("++++++++++++++++++++++++++++++++++++++++++");
-      console.log("++++++++++++++++++++++++++++++++++++++++++");
-      console.log("++++++++++++++++++++++++++++++++++++++++++");
-      console.log("++++++++++++++++++++++++++++++++++++++++++");
-      console.log(req.query);
+      // console.log("++++++++++++++++++++++++++++++++++++++++++");
+      // console.log("++++++++++++++++++++++++++++++++++++++++++");
+      // console.log("++++++++++++++++++++++++++++++++++++++++++");
+      // console.log("++++++++++++++++++++++++++++++++++++++++++");
+      // console.log(req.query);
       req.session = req.query;
       next();
     },
@@ -28,13 +28,13 @@ module.exports = (app) => {
     "/auth/google/callback",
     passport.authenticate("google"),
     (req, res) => {
-      res.redirect("/home");
+      res.redirect("/habits");
     }
   );
 
   app.get("/api/logout", (req, res) => {
     req.logout();
-    res.redirect("/home");
+    res.redirect("/");
   });
 
   app.get("/api/current_user", (req, res) => {
