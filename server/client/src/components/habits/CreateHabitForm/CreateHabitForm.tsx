@@ -17,7 +17,7 @@ interface Props {
 }
 
 const CreateHabitForm: React.FC<Props> = ({ handleSubmitNew }: Props) => {
-  const user = useSelector((state: RootState) => state.auth.user);
+  const { user } = useSelector((state: RootState) => state.authState);
 
   const [formValues, setFormValues] = useState({
     title: '',

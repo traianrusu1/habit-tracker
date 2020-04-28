@@ -19,6 +19,6 @@ export interface HabitsState {
 }
 
 export interface RootState {
-  auth: AuthState;
-  habits: HabitsState;
+  authState: AuthState;
+  habitsState: HabitsState;
 }

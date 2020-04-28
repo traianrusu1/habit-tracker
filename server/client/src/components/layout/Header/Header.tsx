@@ -8,11 +8,11 @@ import { RootState, AuthStates } from '../../../store/auth/types';
 // }
 
 const Header: React.FC = () => {
-  const auth = useSelector((state: RootState) => state.auth);
+  const authState = useSelector((state: RootState) => state.authState);
   console.log('-- HEADER --');
-  console.log(auth);
+  console.log(authState);
 
-  const renderContent = (userAuth: typeof auth): JSX.Element | null => {
+  const renderContent = (userAuth: typeof authState): JSX.Element | null => {
     switch (userAuth.status) {
       case AuthStates.Pending:
         return null;
@@ -40,13 +40,13 @@ const Header: React.FC = () => {
     <nav>
       <div className="nav-wrapper">
         <Link
-          to={auth.status === AuthStates.LoggedIn ? '/habits' : '/'}
+          to={authState?.status === AuthStates.LoggedIn ? '/habits' : '/'}
           className="brand-logo left"
         >
           HabitPro
         </Link>
         <ul id="nav-mobile" className="right ">
-          {renderContent(auth)}
+          {renderContent(authState)}
           {/* <li>
             <a href="badges.html">Components</a>
           </li>
