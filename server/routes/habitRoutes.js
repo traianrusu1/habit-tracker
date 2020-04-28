@@ -9,11 +9,11 @@ module.exports = (app) => {
   app.get("/api/habits", checkLoggedIn, async (req, res) => {
     console.log("-- GET /api/habits --");
     console.log(req.user);
-    const habits = await Habit.findOne({
+    const habits = await Habit.find({
       userId: req.user.id,
     });
     console.log(habits);
-    res.send("SUCCESS");
+    res.send(habits);
   });
 
   app.post("/api/habits", checkLoggedIn, async (req, res) => {

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import fetchUser from './actions';
+import fetchUser from './actions/authActions';
 
 import { Header, Landing, Dashboard } from './components';
 

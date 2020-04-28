@@ -1,4 +1,5 @@
 import { User } from '../../interfaces/User';
+import { Habit } from '../../interfaces/Habit';
 
 export enum AuthStates {
   Pending = 'pending',
@@ -12,6 +13,12 @@ export interface AuthState {
   user: User | null;
 }
 
+export interface HabitsState {
+  // status: AuthStates;
+  habits: Habit[] | null;
+}
+
 export interface RootState {
   auth: AuthState;
+  habits: HabitsState;
 }

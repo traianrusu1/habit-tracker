@@ -3,6 +3,9 @@ import axios from 'axios';
 import styles from './Dashboard.module.scss';
 import CreateHabitForm from '../CreateHabitForm';
 import { HabitNew } from '../CreateHabitForm/CreateHabitForm';
+import { useDispatch, useSelector } from 'react-redux';
+import fetchHabits from '../../../actions/habitActions';
+import { RootState } from '../../../store/auth/types';
 
 // interface Props {
 //   myProp: string;
@@ -10,15 +13,14 @@ import { HabitNew } from '../CreateHabitForm/CreateHabitForm';
 
 const Dashboard: React.FC = () => {
   const [isCreating, setIsCreating] = useState(false);
+  const dispatch = useDispatch();
+  const habits = useSelector((state: RootState) => state.habits);
+
+  console.log('Habits - ', habits);
 
   useEffect(() => {
-    // Materialize.updateTextFields();
-    console.log('-- GET HABITS INITIATE --');
-    axios.get('/api/habits').then((res) => {
-      console.log('-- GET HABITS SUCCESS --');
-      console.log(res);
-    });
-  }, []);
+    dispatch(fetchHabits());
+  }, [dispatch]);
 
   const handleCreateHabit = (): void => {
     setIsCreating((prevState) => !prevState);
