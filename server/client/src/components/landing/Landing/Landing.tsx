@@ -1,24 +1,16 @@
-import React from "react";
-import styles from "./Landing.module.scss";
+import React from 'react';
 
-interface Props {
-  myProp: string;
-}
+import styles from './Landing.module.scss';
 
-const Landing: React.FC<Props> = ({ myProp }: Props) => {
+// interface Props {
+//   myProp: string;
+// }
+
+const Landing: React.FC = () => {
   return (
-    <div className={styles.landing}>
-      Welcome to FitLife. Please press here to Sign In or Register.
-      <button>Sign In</button>
-      <button>Register</button>
-      <a
-        className="App-link"
-        href="/auth/google"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Sign In / Register With Google
-      </a>
+    <div className={`${styles.landing} container center`}>
+      <h1>HabitPro</h1>
+      <p>The best habit tracking app!</p>
     </div>
   );
 };

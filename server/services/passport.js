@@ -21,23 +21,32 @@ passport.use(
       clientSecret: keys.googleClientSecret,
       callbackURL: "/auth/google/callback",
       proxy: true,
+      passReqToCallback: true,
     },
-    async (accessToken, refreshToken, profile, done) => {
-      const user = await User.findOne({
+    async (req, accessToken, refreshToken, profile, done) => {
+      const accountType = req.session.accountType;
+      // console.log("--------------------------------------------");
+      // console.log("--------------------------------------------");
+      // console.log("--------------------------------------------");
+      // console.log("--------------------------------------------");
+      // console.log(accountType);
+
+      const existingUser = await User.findOne({
         googleId: profile.id,
       });
-      if (user) {
-        console.log("-- User Already Exists --", user);
-        done(null, user);
+      if (existingUser) {
+        console.log("-- User Already Exists --", existingUser);
+        done(null, existingUser);
       } else {
         console.log("-- Creating New User --");
-        const newUser = new User({
+        const newUser = await new User({
+          accountType,
           googleId: profile.id,
           firstName: profile.name.givenName,
           lastName: profile.name.familyName,
           email: profile.emails[0].value,
-        });
-        await newUser.save();
+        }).save();
+        // await newUser.save();
         done(null, newUser);
       }
     }
