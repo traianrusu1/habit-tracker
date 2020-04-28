@@ -1,7 +1,9 @@
-import React, { useState, FormEvent } from "react";
-import styles from "./CreateHabitForm.module.scss";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../store/auth/types";
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable no-underscore-dangle */
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import styles from './CreateHabitForm.module.scss';
+import { RootState } from '../../../store/auth/types';
 
 export interface HabitNew {
   title: string;
@@ -18,27 +20,25 @@ const CreateHabitForm: React.FC<Props> = ({ handleSubmitNew }: Props) => {
   const user = useSelector((state: RootState) => state.auth.user);
 
   const [formValues, setFormValues] = useState({
-    title: "",
-    category: "",
-    description: "",
+    title: '',
+    category: '',
+    description: '',
   });
 
   const handleInputChange = (
-    e:
-      | React.ChangeEvent<HTMLTextAreaElement>
-      | React.ChangeEvent<HTMLInputElement>
-  ) => {
+    e: React.ChangeEvent<HTMLTextAreaElement> | React.ChangeEvent<HTMLInputElement>,
+  ): void => {
     setFormValues({
       ...formValues,
       [e.currentTarget.name]: e.currentTarget.value,
     });
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     const habit = {
       ...formValues,
-      userId: user._id,
+      userId: user?._id || '',
     };
     handleSubmitNew(habit);
   };
@@ -75,16 +75,12 @@ const CreateHabitForm: React.FC<Props> = ({ handleSubmitNew }: Props) => {
                 name="description"
                 className="materialize-textarea"
                 onChange={handleInputChange}
-              ></textarea>
+              />
               <label htmlFor="description">Description</label>
             </div>
           </div>
           <div className="row">
-            <button
-              className="btn waves-effect waves-light"
-              type="submit"
-              name="action"
-            >
+            <button className="btn waves-effect waves-light" type="submit" name="action">
               Submit
               <i className="material-icons right">send</i>
             </button>

@@ -1,11 +1,11 @@
-import { AuthActionTypes, FETCH_USER } from "../actions/types";
-import { AuthStates } from "../store/auth/types";
+import { AuthActionTypes, FETCH_USER } from '../actions/types';
+import { AuthStates, AuthState } from '../store/auth/types';
 
 export default function (
   state = { user: null, status: AuthStates.Pending },
-  action: AuthActionTypes
-) {
-  console.log("authReducer");
+  action: AuthActionTypes,
+): AuthState {
+  console.log('authReducer');
   console.log(state);
   console.log(action);
 

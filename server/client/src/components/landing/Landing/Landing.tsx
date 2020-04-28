@@ -1,14 +1,14 @@
-import React from "react";
+import React from 'react';
 
-import styles from "./Landing.module.scss";
+import styles from './Landing.module.scss';
 
-interface Props {
-  myProp: string;
-}
+// interface Props {
+//   myProp: string;
+// }
 
-const Landing: React.FC<Props> = ({ myProp }: Props) => {
+const Landing: React.FC = () => {
   return (
-    <div className={styles.landing + " " + "container center"}>
+    <div className={`${styles.landing} container center`}>
       <h1>HabitPro</h1>
       <p>The best habit tracking app!</p>
     </div>

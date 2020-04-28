@@ -1,36 +1,32 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import styles from "./Dashboard.module.scss";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../store/auth/types";
-import { userInfo } from "os";
-import { Habit } from "../../../interfaces/Habit";
-import CreateHabitForm from "../CreateHabitForm";
-import { HabitNew } from "../CreateHabitForm/CreateHabitForm";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import styles from './Dashboard.module.scss';
+import CreateHabitForm from '../CreateHabitForm';
+import { HabitNew } from '../CreateHabitForm/CreateHabitForm';
 
-interface Props {
-  myProp: string;
-}
+// interface Props {
+//   myProp: string;
+// }
 
-const Dashboard: React.FC<Props> = ({ myProp }: Props) => {
+const Dashboard: React.FC = () => {
   const [isCreating, setIsCreating] = useState(false);
 
   useEffect(() => {
     // Materialize.updateTextFields();
-    console.log("-- GET HABITS INITIATE --");
-    axios.get("/api/habits").then((res) => {
-      console.log("-- GET HABITS SUCCESS --");
+    console.log('-- GET HABITS INITIATE --');
+    axios.get('/api/habits').then((res) => {
+      console.log('-- GET HABITS SUCCESS --');
       console.log(res);
     });
   }, []);
 
-  const handleCreateHabit = () => {
+  const handleCreateHabit = (): void => {
     setIsCreating((prevState) => !prevState);
   };
 
-  const handleSubmitNew = (habit: HabitNew) => {
-    console.log("-- HandleSubmitNew --");
-    axios.post("/api/habits", habit);
+  const handleSubmitNew = (habit: HabitNew): void => {
+    console.log('-- HandleSubmitNew --');
+    axios.post('/api/habits', habit);
   };
 
   return (
@@ -39,6 +35,7 @@ const Dashboard: React.FC<Props> = ({ myProp }: Props) => {
         <div className="row">
           <div className="col s12">
             <button
+              type="button"
               className="waves-effect waves-light btn"
               onClick={handleCreateHabit}
             >
@@ -46,7 +43,7 @@ const Dashboard: React.FC<Props> = ({ myProp }: Props) => {
             </button>
           </div>
         </div>
-        <CreateHabitForm handleSubmitNew={handleSubmitNew} />
+        {isCreating && <CreateHabitForm handleSubmitNew={handleSubmitNew} />}
       </div>
     </main>
   );

@@ -1,21 +1,18 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import styles from "./Header.module.scss";
-import { RootState, AuthStates } from "../../../store/auth/types";
-import { createSelector } from "reselect";
-import { User } from "../../../interfaces/User";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { RootState, AuthStates } from '../../../store/auth/types';
 
-interface Props {
-  myProp: string;
-}
+// interface Props {
+//   myProp: string;
+// }
 
-const Header: React.FC<Props> = ({ myProp }: Props) => {
+const Header: React.FC = () => {
   const auth = useSelector((state: RootState) => state.auth);
-  console.log("-- HEADER --");
+  console.log('-- HEADER --');
   console.log(auth);
 
-  const renderContent = (userAuth: typeof auth) => {
+  const renderContent = (userAuth: typeof auth): JSX.Element | null => {
     switch (userAuth.status) {
       case AuthStates.Pending:
         return null;
@@ -43,7 +40,7 @@ const Header: React.FC<Props> = ({ myProp }: Props) => {
     <nav>
       <div className="nav-wrapper">
         <Link
-          to={auth.status === AuthStates.LoggedIn ? "/habits" : "/"}
+          to={auth.status === AuthStates.LoggedIn ? '/habits' : '/'}
           className="brand-logo left"
         >
           HabitPro
