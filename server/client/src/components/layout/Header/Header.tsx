@@ -1,7 +1,11 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
+import { Layout, Menu } from 'antd';
+
 import { RootState, AuthStates } from '../../../store/auth/types';
+
+const { Header: AntHeader } = Layout;
 
 interface Props {
   handleShowCreateHabit: () => void;
@@ -24,55 +28,65 @@ const Header: React.FC<Props> = ({ handleShowCreateHabit }: Props) => {
         );
       default:
         return (
-          <>
-            <li>
-              <a onClick={handleShowCreateHabit}>
-                <i className="material-icons right">add_circle_outline</i>
+          <AntHeader>
+            <div className="logo" />
+            <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
+              <Menu.Item key="1" onClick={handleShowCreateHabit}>
                 Add
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <i className="material-icons right">collections</i>Category
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <i className="material-icons right">filter_list</i>Filter
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <i className="material-icons right">group</i>Group
-              </a>
-            </li>
-            <li>
-              <a href="/api/Logout">Logout</a>
-            </li>
-          </>
+              </Menu.Item>
+              <Menu.Item key="2">Categories</Menu.Item>
+              <Menu.Item key="3">Reports</Menu.Item>
+            </Menu>
+          </AntHeader>
+          // <>
+          //   <li>
+          //     <a onClick={handleShowCreateHabit}>
+          //       <i className="material-icons right">add_circle_outline</i>
+          //       Add
+          //     </a>
+          //   </li>
+          //   <li>
+          //     <a href="#">
+          //       <i className="material-icons right">collections</i>Category
+          //     </a>
+          //   </li>
+          //   <li>
+          //     <a href="#">
+          //       <i className="material-icons right">filter_list</i>Filter
+          //     </a>
+          //   </li>
+          //   <li>
+          //     <a href="#">
+          //       <i className="material-icons right">group</i>Group
+          //     </a>
+          //   </li>
+          //   <li>
+          //     <a href="/api/Logout">Logout</a>
+          //   </li>
+          // </>
         );
     }
   };
 
   return (
     <nav>
-      <div className="nav-wrapper">
+      {/* <div className="nav-wrapper">
         <Link
           to={authState?.status === AuthStates.LoggedIn ? '/habits' : '/'}
           className="brand-logo left"
         >
           HabitPro
-        </Link>
-        <ul id="nav-mobile" className="right ">
-          {renderContent(authState)}
-          {/* <li>
+        </Link> */}
+      {/* <ul id="nav-mobile" className="right "> */}
+      {renderContent(authState)}
+      {/* <li>
             <a href="badges.html">Components</a>
           </li>
           <li>
             <a href="collapsible.html">JavaScript</a>
           </li> */}
-        </ul>
-      </div>
+      {/* </ul>
+      </div> */}
     </nav>
   );
 };
