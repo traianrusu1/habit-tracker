@@ -3,11 +3,11 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { RootState, AuthStates } from '../../../store/auth/types';
 
-// interface Props {
-//   myProp: string;
-// }
+interface Props {
+  handleShowCreateHabit: () => void;
+}
 
-const Header: React.FC = () => {
+const Header: React.FC<Props> = ({ handleShowCreateHabit }: Props) => {
   const authState = useSelector((state: RootState) => state.authState);
   console.log('-- HEADER --');
   console.log(authState);
@@ -25,9 +25,27 @@ const Header: React.FC = () => {
       default:
         return (
           <>
-            {/* <li>
-              <a href="#">Add</a>
-            </li> */}
+            <li>
+              <a onClick={handleShowCreateHabit}>
+                <i className="material-icons right">add_circle_outline</i>
+                Add
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <i className="material-icons right">collections</i>Category
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <i className="material-icons right">filter_list</i>Filter
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <i className="material-icons right">group</i>Group
+              </a>
+            </li>
             <li>
               <a href="/api/Logout">Logout</a>
             </li>

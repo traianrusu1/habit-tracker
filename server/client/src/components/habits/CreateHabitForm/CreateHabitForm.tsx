@@ -48,15 +48,16 @@ const CreateHabitForm: React.FC<Props> = ({ handleSubmitNew }: Props) => {
       <div className="row">
         <form className="col s12" onSubmit={handleSubmit}>
           <div className="input-field col s6">
-            <input
+            {/* <input
               id="title"
               name="title"
               type="text"
               className="validate"
               value={formValues.title}
               onChange={handleInputChange}
-            />
-            <label htmlFor="title">Title</label>
+            /> */}
+            {/* <Input id="TextInput-4" placeholder="Title" /> */}
+            {/* <label htmlFor="title">Title</label> */}
           </div>
           <div className="input-field col s6">
             <input

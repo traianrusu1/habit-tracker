@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
 import styles from './Dashboard.module.scss';
 import CreateHabitForm from '../CreateHabitForm';
@@ -8,12 +8,11 @@ import fetchHabits from '../../../actions/habitActions';
 import { RootState } from '../../../store/auth/types';
 import HabitList from '../HabitList';
 
-// interface Props {
-//   myProp: string;
-// }
+interface Props {
+  showCreateHabit: boolean;
+}
 
-const Dashboard: React.FC = () => {
-  const [isCreating, setIsCreating] = useState(false);
+const Dashboard: React.FC<Props> = ({ showCreateHabit }: Props) => {
   const dispatch = useDispatch();
   const habitsState = useSelector((state: RootState) => state.habitsState);
 
@@ -23,9 +22,9 @@ const Dashboard: React.FC = () => {
     dispatch(fetchHabits());
   }, [dispatch]);
 
-  const handleCreateHabit = (): void => {
-    setIsCreating((prevState) => !prevState);
-  };
+  // const handleShowCreateHabit = (): void => {
+  //   setIsCreating((prevState) => !prevState);
+  // };
 
   const handleSubmitNew = async (habit: HabitNew): Promise<void> => {
     console.log('-- HandleSubmitNew --');
@@ -38,15 +37,17 @@ const Dashboard: React.FC = () => {
     dispatch(fetchHabits());
   };
 
+  console.log('HAHAHAHAHAHAHAHAHAHA', showCreateHabit);
+
   return (
     <main className={styles.dashboard}>
       <div className="container">
         <div className="row center">
-          <div className="col s3">
+          {/* <div className="col s3">
             <button
               type="button"
               className="waves-effect waves-light btn"
-              onClick={handleCreateHabit}
+              onClick={handleShowCreateHabit}
             >
               <i className="material-icons right">add_circle_outline</i>New
             </button>
@@ -55,7 +56,7 @@ const Dashboard: React.FC = () => {
             <button
               type="button"
               className="waves-effect waves-light btn"
-              onClick={handleCreateHabit}
+              onClick={handleShowCreateHabit}
             >
               <i className="material-icons right">collections</i>Category
             </button>
@@ -64,7 +65,7 @@ const Dashboard: React.FC = () => {
             <button
               type="button"
               className="waves-effect waves-light btn"
-              onClick={handleCreateHabit}
+              onClick={handleShowCreateHabit}
             >
               <i className="material-icons right">filter_list</i>Filter
             </button>
@@ -73,13 +74,13 @@ const Dashboard: React.FC = () => {
             <button
               type="button"
               className="waves-effect waves-light btn"
-              onClick={handleCreateHabit}
+              onClick={handleShowCreateHabit}
             >
               <i className="material-icons right">group</i>Group
             </button>
-          </div>
+          </div> */}
         </div>
-        {isCreating && <CreateHabitForm handleSubmitNew={handleSubmitNew} />}
+        {showCreateHabit && <CreateHabitForm handleSubmitNew={handleSubmitNew} />}
         <HabitList habits={habitsState?.habits} />
       </div>
     </main>
