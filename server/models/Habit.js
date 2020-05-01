@@ -2,10 +2,15 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const habitSchema = new Schema({
-  title: String,
+  title: { type: String, required: true },
+  userId: { type: String, required: true },
+  category: { type: String, required: true },
+  scheduleType: { type: String, required: true },
+  scheduleDays: [String],
+  scheduleDaysPer: Number,
+  duration: [String],
   description: String,
-  category: String,
-  userId: String,
+  colour: String,
 });
 
 mongoose.model("habits", habitSchema);

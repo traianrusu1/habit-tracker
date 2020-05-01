@@ -4,6 +4,7 @@ import { Habit } from '../interfaces/Habit';
 export const FETCH_USER = 'fetch_user';
 export const LOGIN_USER = 'login_user';
 export const FETCH_HABITS = 'fetch_habits';
+export const CREATE_HABIT = 'create_habit';
 
 interface FetchUserAction {
   type: typeof FETCH_USER;
@@ -20,6 +21,11 @@ interface FetchHabitsAction {
   payload: Habit[];
 }
 
+interface CreateHabitAction {
+  type: typeof CREATE_HABIT;
+  payload: Habit;
+}
+
 export type AuthActionTypes = FetchUserAction | LoginUserAction;
 
-export type HabitActionTypes = FetchHabitsAction;
+export type HabitActionTypes = FetchHabitsAction | CreateHabitAction;

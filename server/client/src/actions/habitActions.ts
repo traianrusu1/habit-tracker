@@ -1,14 +1,32 @@
+import { Habit } from './../interfaces/Habit';
 import axios from 'axios';
 import { Action } from 'redux';
 import { ThunkAction } from 'redux-thunk';
-import { FETCH_HABITS } from './types';
+import { FETCH_HABITS, CREATE_HABIT } from './types';
 import { RootState } from '../store/auth/types';
+import { message } from 'antd';
 
-const fetchHabits = (): ThunkAction<void, RootState, unknown, Action<string>> => async (
+export const fetchHabits = (): ThunkAction<void, RootState, unknown, Action<string>> => async (
   dispatch,
 ): Promise<void> => {
-  const habits = await axios.get('/api/habits');
-  dispatch({ type: FETCH_HABITS, payload: habits.data });
+  try {
+    const habits = await axios.get('/api/habits');
+    dispatch({ type: FETCH_HABITS, payload: habits.data });
+  } catch (err) {
+    console.error('-- fetchHabits --', err);
+    message.error('Sorry, an error occurred fetching your habits. Please Try again.');
+  }
 };
 
-export default fetchHabits;
+export const createHabit = (
+  habit: Habit,
+): ThunkAction<void, RootState, unknown, Action<string>> => async (dispatch): Promise<void> => {
+  try {
+    const newHabit = await axios.post('/api/habits', habit);
+    dispatch({ type: CREATE_HABIT, payload: newHabit.data });
+    message.success('Habit successfully added.');
+  } catch (err) {
+    console.error('-- createHabit --', err);
+    message.error('Sorry, an error occurred. Please Try again.');
+  }
+};

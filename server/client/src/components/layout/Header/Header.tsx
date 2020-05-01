@@ -2,8 +2,8 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 // import { Link } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
-
 import { RootState, AuthStates } from '../../../store/auth/types';
+import styles from './Header.module.scss';
 
 const { Header: AntHeader } = Layout;
 
@@ -22,20 +22,32 @@ const Header: React.FC<Props> = ({ handleShowCreateHabit }: Props) => {
         return null;
       case AuthStates.LoggedOut:
         return (
-          <li>
-            <a href="/auth/google">Login With Google</a>
-          </li>
+          <AntHeader>
+            <div className={styles.logo} />
+            <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
+              <Menu.Item key="1">
+                <a href="/auth/google">Login With Google</a>
+              </Menu.Item>
+            </Menu>
+          </AntHeader>
         );
       default:
         return (
           <AntHeader>
-            <div className="logo" />
+            <div className={styles.logo}> HabitPro </div>
             <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
-              <Menu.Item key="1" onClick={handleShowCreateHabit}>
+              <Menu.Item key="1" onClick={handleShowCreateHabit} className="navItems">
                 Add
               </Menu.Item>
-              <Menu.Item key="2">Categories</Menu.Item>
-              <Menu.Item key="3">Reports</Menu.Item>
+              <Menu.Item className="navItems" key="2">
+                Categories
+              </Menu.Item>
+              <Menu.Item className="navItems" key="3">
+                Reports
+              </Menu.Item>
+              <Menu.Item className="navItems" key="4">
+                <a href="/api/Logout">Logout</a>
+              </Menu.Item>
             </Menu>
           </AntHeader>
           // <>
