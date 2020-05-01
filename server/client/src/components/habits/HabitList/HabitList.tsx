@@ -2,8 +2,15 @@ import React from 'react';
 import styles from './HabitList.module.scss';
 import { Habit } from '../../../interfaces/Habit';
 // import HabitListItem from '../HabitListItem';
-import { List, Skeleton, Avatar, Button } from 'antd';
-import { CarryOutOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { List, Skeleton, Avatar, Button, Dropdown, Menu } from 'antd';
+import {
+  CarryOutOutlined,
+  EditOutlined,
+  DeleteOutlined,
+  EllipsisOutlined,
+  // UserOutlined,
+} from '@ant-design/icons';
+import { ClickParam } from 'antd/lib/menu';
 
 interface Props {
   habits: Habit[] | null;
@@ -15,12 +22,35 @@ const HabitList: React.FC<Props> = ({ habits }: Props) => {
   const handleMarkDone = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     console.log('-- handleMarkDone --', event);
   };
-  const handleEdit = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-    console.log('-- handleEdit --', event);
+  const handleEdit = () => {
+    console.log('-- handleEdit --');
   };
-  const handleDelete = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-    console.log('-- handleDelete --', event);
+  const handleDelete = () => {
+    console.log('-- handleDelete --');
   };
+  const handleMenuItemClick = (param: ClickParam) => {
+    switch (param.key) {
+      case 'edit':
+        handleEdit();
+        break;
+      case 'delete':
+        handleDelete();
+        break;
+      default:
+        break;
+    }
+  };
+
+  const menu = (
+    <Menu onClick={handleMenuItemClick}>
+      <Menu.Item key="edit" icon={<EditOutlined />}>
+        Edit
+      </Menu.Item>
+      <Menu.Item key="delete" icon={<DeleteOutlined />}>
+        Delete
+      </Menu.Item>
+    </Menu>
+  );
 
   return (
     <article className={`${styles.habitList} row`}>
@@ -45,21 +75,19 @@ const HabitList: React.FC<Props> = ({ habits }: Props) => {
               // <a key="list-loadmore-edit" onClick={handleMarkDone}>
               //   Done
               // </a>,
-              <Button
-                type="primary"
-                shape="round"
-                onClick={handleEdit}
-                icon={<EditOutlined />}
-                size="large"
-              ></Button>,
-              <Button
-                type="primary"
-                shape="round"
-                onClick={handleDelete}
-                icon={<DeleteOutlined />}
-                size="large"
-                danger
-              ></Button>,
+              // <Button
+              //   type="primary"
+              //   shape="round"
+              //   onClick={handleEdit}
+              //   icon={<EditOutlined />}
+              //   size="large"
+              // ></Button>,
+              <Dropdown overlay={menu}>
+                <Button type="link">
+                  <EllipsisOutlined />
+                </Button>
+              </Dropdown>,
+              // <Dropdown.Button type="primary" overlay={menu}></Dropdown.Button>,
             ]}
           >
             <Skeleton avatar title={false} loading={false} active>

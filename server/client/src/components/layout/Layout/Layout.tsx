@@ -14,7 +14,7 @@ const Layout: React.FC<Props> = ({ children, handleShowCreateHabit }: Props) => 
   return (
     <AntLayout className={styles.siteLayoutBackground}>
       <Header handleShowCreateHabit={handleShowCreateHabit} />
-      <Content style={{ padding: '20px 50px' }}>
+      <Content style={{ padding: '10px 10px' }}>
         {/* <Breadcrumb style={{ margin: '16px 0' }}>
             <Breadcrumb.Item>Home</Breadcrumb.Item>
             <Breadcrumb.Item>List</Breadcrumb.Item>
