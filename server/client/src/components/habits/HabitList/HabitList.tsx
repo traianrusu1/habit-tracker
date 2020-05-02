@@ -82,7 +82,7 @@ const HabitList: React.FC<Props> = ({ habits }: Props) => {
               //   icon={<EditOutlined />}
               //   size="large"
               // ></Button>,
-              <Dropdown overlay={menu}>
+              <Dropdown overlay={menu} placement="bottomRight">
                 <Button type="link">
                   <EllipsisOutlined />
                 </Button>
