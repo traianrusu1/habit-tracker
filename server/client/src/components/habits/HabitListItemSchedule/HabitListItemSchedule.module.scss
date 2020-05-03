@@ -1,1 +1,36 @@
-.habitListItemSchedule {}
+.habitListItemSchedule {
+  div {
+    display: inline-block;
+  }
+
+  .scheduleItem {
+    border: 1px solid lightgray;
+    width: 1.8rem;
+    height: 1.7rem;
+    margin: 2px;
+    padding: 0.2rem 0 0 0.1rem;
+    border-radius: 5px;
+    font-size: 0.65rem;
+  }
+
+  .dayScheduled {
+    background-color: hsl(39, 61%, 69%);
+  }
+
+  .todayDay {
+    border: 2px solid rgb(34, 34, 34);
+  }
+
+  .todayDayIcon {
+    position: relative;
+    left: 0.4rem;
+    top: 0x;
+    color: rgb(34, 34, 34);
+    font-size: 1.2rem;
+  }
+
+  .dayItemContainer {
+    display: inline-flex;
+    flex-direction: column;
+  }
+}

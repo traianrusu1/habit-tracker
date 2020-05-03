@@ -3,7 +3,7 @@ import { Layout as AntLayout } from 'antd';
 import styles from './Layout.module.scss';
 import Header from '../Header';
 
-const { Footer, Content } = AntLayout;
+const { Content } = AntLayout;
 
 interface Props {
   children: any;
@@ -22,7 +22,7 @@ const Layout: React.FC<Props> = ({ children, handleShowCreateHabit }: Props) => 
           </Breadcrumb> */}
         <div className="site-layout-content">{children}</div>
       </Content>
-      <Footer style={{ textAlign: 'center' }}>Habit Pro ©2020 Created by Traian Rusu</Footer>
+      {/* <Footer style={{ textAlign: 'center' }}>Habit Pro ©2020 Created by Traian Rusu</Footer> */}
     </AntLayout>
   );
 };

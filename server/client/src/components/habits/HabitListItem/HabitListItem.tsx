@@ -2,12 +2,7 @@ import React from 'react';
 // import styles from './HabitListItem.module.scss';
 import { Habit } from '../../../interfaces/Habit';
 import { List, Button, Dropdown, Skeleton, Avatar, Menu } from 'antd';
-import {
-  CarryOutOutlined,
-  EllipsisOutlined,
-  EditOutlined,
-  DeleteOutlined,
-} from '@ant-design/icons';
+import { EllipsisOutlined, EditOutlined, DeleteOutlined, CheckOutlined } from '@ant-design/icons';
 import { ClickParam } from 'antd/lib/menu';
 import HabitListItemSchedule from '../HabitListItemSchedule';
 
@@ -59,13 +54,11 @@ const HabitListItem: React.FC<Props> = ({
       actions={[
         <Button
           type="primary"
-          shape="round"
+          shape="circle"
           onClick={handleMarkDone}
-          icon={<CarryOutOutlined />}
+          icon={<CheckOutlined />}
           size="large"
-        >
-          Done
-        </Button>,
+        ></Button>,
         <Dropdown trigger={['click']} overlay={menu} placement="bottomRight">
           <Button type="link">
             <EllipsisOutlined />
