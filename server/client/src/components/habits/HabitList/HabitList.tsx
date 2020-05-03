@@ -1,56 +1,44 @@
 import React from 'react';
 import styles from './HabitList.module.scss';
 import { Habit } from '../../../interfaces/Habit';
-// import HabitListItem from '../HabitListItem';
-import { List, Skeleton, Avatar, Button, Dropdown, Menu } from 'antd';
-import {
-  CarryOutOutlined,
-  EditOutlined,
-  DeleteOutlined,
-  EllipsisOutlined,
-  // UserOutlined,
-} from '@ant-design/icons';
-import { ClickParam } from 'antd/lib/menu';
+import { List, Modal } from 'antd';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { HabitListItem } from '../..';
+
+const { confirm } = Modal;
 
 interface Props {
   habits: Habit[] | null;
+  handleDeleteHabit: (habitId: string) => void;
 }
 
-const HabitList: React.FC<Props> = ({ habits }: Props) => {
+const HabitList: React.FC<Props> = ({ habits, handleDeleteHabit }: Props) => {
   console.log('HABIT LIST ', habits);
 
   const handleMarkDone = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     console.log('-- handleMarkDone --', event);
   };
-  const handleEdit = () => {
-    console.log('-- handleEdit --');
+  const handleEdit = (habitId: string) => {
+    console.log('-- handleEdit --', habitId);
   };
-  const handleDelete = () => {
-    console.log('-- handleDelete --');
-  };
-  const handleMenuItemClick = (param: ClickParam) => {
-    switch (param.key) {
-      case 'edit':
-        handleEdit();
-        break;
-      case 'delete':
-        handleDelete();
-        break;
-      default:
-        break;
-    }
-  };
+  const handleDelete = (habitId: string) => {
+    console.log('-- handleDelete --', habitId);
+    confirm({
+      title: 'Are you sure you want to delete this habit?',
+      icon: <ExclamationCircleOutlined />,
+      content: 'It will be gone forever and you will not be able to get it back',
+      okText: 'Yes',
 
-  const menu = (
-    <Menu onClick={handleMenuItemClick}>
-      <Menu.Item key="edit" icon={<EditOutlined />}>
-        Edit
-      </Menu.Item>
-      <Menu.Item key="delete" icon={<DeleteOutlined />}>
-        Delete
-      </Menu.Item>
-    </Menu>
-  );
+      cancelText: 'No',
+      onOk() {
+        handleDeleteHabit(habitId);
+        console.log('OK');
+      },
+      onCancel() {
+        console.log('Cancel');
+      },
+    });
+  };
 
   return (
     <article className={`${styles.habitList} row`}>
@@ -60,54 +48,15 @@ const HabitList: React.FC<Props> = ({ habits }: Props) => {
         itemLayout="horizontal"
         loadMore={() => null}
         dataSource={habits || undefined}
-        renderItem={(item: Habit) => (
-          <List.Item
-            actions={[
-              <Button
-                type="primary"
-                shape="round"
-                onClick={handleMarkDone}
-                icon={<CarryOutOutlined />}
-                size="large"
-              >
-                Done
-              </Button>,
-              // <a key="list-loadmore-edit" onClick={handleMarkDone}>
-              //   Done
-              // </a>,
-              // <Button
-              //   type="primary"
-              //   shape="round"
-              //   onClick={handleEdit}
-              //   icon={<EditOutlined />}
-              //   size="large"
-              // ></Button>,
-              <Dropdown overlay={menu} placement="bottomRight">
-                <Button type="link">
-                  <EllipsisOutlined />
-                </Button>
-              </Dropdown>,
-              // <Dropdown.Button type="primary" overlay={menu}></Dropdown.Button>,
-            ]}
-          >
-            <Skeleton avatar title={false} loading={false} active>
-              <List.Item.Meta
-                avatar={
-                  <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-                }
-                title={<a href="https://ant.design">{item.title}</a>}
-                description={item.description}
-              />
-              {/* <div>content</div> */}
-            </Skeleton>
-          </List.Item>
+        renderItem={(habit: Habit) => (
+          <HabitListItem
+            habit={habit}
+            handleMarkDone={handleMarkDone}
+            handleEdit={handleEdit}
+            handleDelete={handleDelete}
+          />
         )}
       />
-      {/* <ul className="collection">
-        {habits?.map((h) => {
-          return <HabitListItem habit={h} key={h._id} />;
-        })}
-      </ul> */}
     </article>
   );
 };

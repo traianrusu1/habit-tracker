@@ -1,5 +1,5 @@
 import { HabitsState } from './../store/auth/types';
-import { HabitActionTypes, FETCH_HABITS, CREATE_HABIT } from '../actions/types';
+import { HabitActionTypes, FETCH_HABITS, CREATE_HABIT, DELETE_HABIT } from '../actions/types';
 // import { AuthStates, AuthState } from '../store/auth/types';
 
 export default function (state = { habits: null }, action: HabitActionTypes): HabitsState {
@@ -18,6 +18,9 @@ export default function (state = { habits: null }, action: HabitActionTypes): Ha
       return state;
     // return { ...state, [...state.habits] };
     // return action.payload || false;
+    case DELETE_HABIT:
+      console.log('DELETE_HABIT', action.payload);
+      return state;
     default:
       return state;
   }

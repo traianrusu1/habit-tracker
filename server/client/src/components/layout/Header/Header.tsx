@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { Layout, Menu } from 'antd';
 import { RootState, AuthStates } from '../../../store/auth/types';
 import styles from './Header.module.scss';
+import { FileDoneOutlined } from '@ant-design/icons';
 
 const { Header: AntHeader } = Layout;
 
@@ -34,7 +35,9 @@ const Header: React.FC<Props> = ({ handleShowCreateHabit }: Props) => {
       default:
         return (
           <AntHeader>
-            <div className={styles.logo}> HabitPro </div>
+            <div className={styles.logo}>
+              <FileDoneOutlined />
+            </div>
             <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
               <Menu.Item key="1" onClick={handleShowCreateHabit} className="navItems">
                 Add

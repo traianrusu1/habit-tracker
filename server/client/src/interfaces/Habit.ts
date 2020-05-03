@@ -5,7 +5,7 @@ export interface Habit {
   category: string;
   description?: string;
   scheduleType: string;
-  scheduleDays?: string[] | undefined;
+  scheduleDays?: number[] | undefined;
   scheduleDaysPer?: number | undefined;
   duration?: any;
   colour?: string;

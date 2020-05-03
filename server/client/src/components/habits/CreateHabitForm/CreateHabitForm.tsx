@@ -22,14 +22,45 @@ interface Props {
   form: FormInstance | undefined;
 }
 
+// enum Days {
+//   'Sunday' = 0,
+//   'Monday' = 1,
+//   'Tuesday' = 2,
+//   'Wednesday' = 3,
+//   'Thursday' = 4,
+//   'Friday' = 5,
+//   'Saturday' = 6,
+// }
+
 const daysOfTheWeek = [
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-  'Saturday',
-  'Sunday',
+  {
+    key: 'Monday',
+    value: 1,
+  },
+  {
+    key: 'Tuesday',
+    value: 2,
+  },
+  {
+    key: 'Wednesday',
+    value: 3,
+  },
+  {
+    key: 'Thursday',
+    value: 4,
+  },
+  {
+    key: 'Friday',
+    value: 5,
+  },
+  {
+    key: 'Saturday',
+    value: 6,
+  },
+  {
+    key: 'Sunday',
+    value: 0,
+  },
 ];
 
 const CreateHabitForm: React.FC<Props> = ({ form }: Props) => {
@@ -131,10 +162,10 @@ const CreateHabitForm: React.FC<Props> = ({ form }: Props) => {
                 // defaultValue={['a10', 'c12']}
                 // onChange={handleChange}
               >
-                {daysOfTheWeek.map((day) => {
+                {daysOfTheWeek.map((day: { key: string; value: number }) => {
                   return (
-                    <Option value={day.toLowerCase()} key={day}>
-                      {day}
+                    <Option value={day.value} key={day.key}>
+                      {day.key}
                     </Option>
                   );
                 })}

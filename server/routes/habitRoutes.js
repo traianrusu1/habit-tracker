@@ -7,7 +7,7 @@ const checkLoggedIn = require("./utils").checkLoggedIn;
 const Habit = mongoose.model("habits");
 
 module.exports = (app) => {
-  app.get("/api/habits", checkLoggedIn, async (req, res) => {
+  app.get("/api/habits", checkLoggedIn, async (req, res, next) => {
     console.log("-- GET /api/habits --");
     console.log(req.user);
     try {
@@ -20,7 +20,7 @@ module.exports = (app) => {
     }
   });
 
-  app.post("/api/habits", checkLoggedIn, async (req, res) => {
+  app.post("/api/habits", checkLoggedIn, async (req, res, next) => {
     console.log("-- POST /api/habits --");
     console.log(req.body);
     try {

@@ -5,7 +5,7 @@ import styles from './Dashboard.module.scss';
 import CreateHabitForm from '../CreateHabitForm';
 // import { HabitNew } from '../CreateHabitForm/CreateHabitForm';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchHabits, createHabit } from '../../../actions/habitActions';
+import { fetchHabits, createHabit, deleteHabit } from '../../../actions/habitActions';
 import { RootState } from '../../../store/auth/types';
 import HabitList from '../HabitList';
 import { Habit } from '../../../interfaces/Habit';
@@ -47,18 +47,24 @@ const Dashboard: React.FC<Props> = ({ showCreateHabit, handleShowCreateHabit }: 
       try {
         const userId = user?._id || '';
         const fieldValues = form.getFieldsValue();
-        dispatch(createHabit({ ...fieldValues, userId: userId } as Habit));
+        await dispatch(createHabit({ ...fieldValues, userId: userId } as Habit));
         dispatch(fetchHabits());
-        // console.log('-- DISPATCH --');
-        // console.log(create);
-        // console.log(fetch);
         form.resetFields();
         handleShowCreateHabit(false);
       } catch (error) {
         console.error('ERROR -', error);
       } finally {
-        // dispatch(fetchHabits());
       }
+    } catch (error) {
+      console.error('ERROR -', error);
+    }
+  };
+
+  const handleDeleteHabit = async (habitId: string): Promise<void> => {
+    console.log('-- handleDeleteHabit --', habitId);
+    try {
+      await dispatch(deleteHabit(habitId));
+      dispatch(fetchHabits());
     } catch (error) {
       console.error('ERROR -', error);
     }
@@ -140,7 +146,7 @@ const Dashboard: React.FC<Props> = ({ showCreateHabit, handleShowCreateHabit }: 
           <CreateHabitForm form={form} />
         </Drawer>
 
-        <HabitList habits={habitsState?.habits} />
+        <HabitList habits={habitsState?.habits} handleDeleteHabit={handleDeleteHabit} />
       </div>
     </main>
   );
