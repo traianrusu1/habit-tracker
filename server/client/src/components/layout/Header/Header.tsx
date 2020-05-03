@@ -48,6 +48,12 @@ const Header: React.FC<Props> = ({ handleShowCreateHabit }: Props) => {
               <Menu.Item className="navItems" key="3">
                 Reports
               </Menu.Item> */}
+              <Menu.Item className="navItems" key="2">
+                <a href="#">Group</a>
+              </Menu.Item>
+              <Menu.Item className="navItems" key="3">
+                <a href="#">View</a>
+              </Menu.Item>
               <Menu.Item className="navItems" key="4">
                 <a href="/api/Logout">Logout</a>
               </Menu.Item>

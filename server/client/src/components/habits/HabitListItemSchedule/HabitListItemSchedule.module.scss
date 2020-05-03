@@ -4,7 +4,7 @@
   }
 
   .scheduleItem {
-    border: 1px solid lightgray;
+    border: 1px solid rgb(110, 110, 110);
     width: 1.8rem;
     height: 1.7rem;
     margin: 2px;
@@ -14,7 +14,7 @@
   }
 
   .dayScheduled {
-    background-color: hsl(39, 61%, 69%);
+    background-color: #ffc250c4;
   }
 
   .todayDay {
@@ -24,7 +24,7 @@
   .todayDayIcon {
     position: relative;
     left: 0.4rem;
-    top: 0x;
+    top: -0.5rem;
     color: rgb(34, 34, 34);
     font-size: 1.2rem;
   }

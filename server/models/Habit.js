@@ -11,6 +11,7 @@ const habitSchema = new Schema({
   duration: [String],
   description: String,
   colour: String,
+  datesCompleted: [String],
 });
 
 mongoose.model("habits", habitSchema);

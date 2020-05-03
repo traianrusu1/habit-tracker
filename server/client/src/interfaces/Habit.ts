@@ -9,4 +9,5 @@ export interface Habit {
   scheduleDaysPer?: number | undefined;
   duration?: any;
   colour?: string;
+  datesCompleted?: string[];
 }

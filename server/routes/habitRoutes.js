@@ -44,4 +44,20 @@ module.exports = (app) => {
       next(err);
     }
   });
+
+  app.patch("/api/habits/:habitId", checkLoggedIn, async (req, res, next) => {
+    console.log("-- PATCH /api/habits --");
+    console.log(req.params.habitId);
+    console.log(req.body);
+
+    try {
+      const patchHabit = await Habit.findByIdAndUpdate(
+        ObjectId(req.params.habitId),
+        req.body
+      );
+      res.send(patchHabit);
+    } catch (err) {
+      next(err);
+    }
+  });
 };

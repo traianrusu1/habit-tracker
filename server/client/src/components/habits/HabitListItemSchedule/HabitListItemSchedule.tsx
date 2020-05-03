@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './HabitListItemSchedule.module.scss';
 import { Habit } from '../../../interfaces/Habit';
-import { UpOutlined } from '@ant-design/icons';
+import { CaretUpOutlined } from '@ant-design/icons';
 
 interface Props {
   habit: Habit;
@@ -37,7 +37,7 @@ const HabitListItemSchedule: React.FC<Props> = ({ habit }: Props) => {
             </div>
             {item === todayDay && (
               <div className={styles.todayDayIcon}>
-                <UpOutlined />
+                <CaretUpOutlined />
               </div>
             )}
           </div>
