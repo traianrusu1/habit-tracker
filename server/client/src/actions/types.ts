@@ -6,6 +6,7 @@ export const LOGIN_USER = 'login_user';
 export const FETCH_HABITS = 'fetch_habits';
 export const CREATE_HABIT = 'create_habit';
 export const DELETE_HABIT = 'delete_habit';
+export const PATCH_HABIT = 'patch_habit';
 
 interface FetchUserAction {
   type: typeof FETCH_USER;
@@ -32,6 +33,15 @@ interface DeleteHabitAction {
   payload: Habit;
 }
 
+interface PatchHabitAction {
+  type: typeof PATCH_HABIT;
+  payload: Habit;
+}
+
 export type AuthActionTypes = FetchUserAction | LoginUserAction;
 
-export type HabitActionTypes = FetchHabitsAction | CreateHabitAction | DeleteHabitAction;
+export type HabitActionTypes =
+  | FetchHabitsAction
+  | CreateHabitAction
+  | DeleteHabitAction
+  | PatchHabitAction;

@@ -2,7 +2,7 @@ import { Habit } from './../interfaces/Habit';
 import axios from 'axios';
 import { Action } from 'redux';
 import { ThunkAction } from 'redux-thunk';
-import { FETCH_HABITS, CREATE_HABIT, DELETE_HABIT } from './types';
+import { FETCH_HABITS, CREATE_HABIT, DELETE_HABIT, PATCH_HABIT } from './types';
 import { RootState } from '../store/auth/types';
 import { message } from 'antd';
 
@@ -38,6 +38,20 @@ export const deleteHabit = (
     const deleteHabit = await axios.delete(`/api/habits/${habitId}`);
     dispatch({ type: DELETE_HABIT, payload: deleteHabit.data });
     message.success('Habit successfully deleted.');
+  } catch (err) {
+    console.error('-- deleteHabit --', err);
+    message.error('Sorry, an error occurred. Please Try again.');
+  }
+};
+
+export const patchHabit = (
+  habitId: string,
+  updateObj: object,
+): ThunkAction<void, RootState, unknown, Action<string>> => async (dispatch): Promise<void> => {
+  try {
+    const patchHabit = await axios.patch(`/api/habits/${habitId}`, updateObj);
+    dispatch({ type: PATCH_HABIT, payload: patchHabit.data });
+    message.success('Habit successfully patched.');
   } catch (err) {
     console.error('-- deleteHabit --', err);
     message.error('Sorry, an error occurred. Please Try again.');

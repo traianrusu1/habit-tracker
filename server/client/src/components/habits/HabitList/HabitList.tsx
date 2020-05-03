@@ -1,27 +1,56 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './HabitList.module.scss';
 import { Habit } from '../../../interfaces/Habit';
 import { List, Modal } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { HabitListItem } from '../..';
+import { useDispatch } from 'react-redux';
+import { fetchHabits, deleteHabit, patchHabit } from '../../../actions/habitActions';
 
 const { confirm } = Modal;
 
 interface Props {
   habits: Habit[] | null;
-  handleDeleteHabit: (habitId: string) => void;
 }
 
-const HabitList: React.FC<Props> = ({ habits, handleDeleteHabit }: Props) => {
+const HabitList: React.FC<Props> = ({ habits }: Props) => {
   console.log('HABIT LIST ', habits);
+  const dispatch = useDispatch();
+  // const { user } = useSelector((state: RootState) => state.authState);
 
-  const handleMarkDone = (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-    console.log('-- handleMarkDone --', event);
+  useEffect(() => {
+    dispatch(fetchHabits());
+  }, [dispatch]);
+
+  // const handleShowCreateHabit = (): void => {
+  //   setIsCreating((prevState) => !prevState);
+  // };
+
+  const handleDeleteHabit = async (habitId: string): Promise<void> => {
+    console.log('-- handleDeleteHabit --', habitId);
+    try {
+      await dispatch(deleteHabit(habitId));
+      dispatch(fetchHabits());
+    } catch (error) {
+      console.error('ERROR -', error);
+    }
   };
+
+  const handleMarkDone = async (habit: Habit) => {
+    console.log('-- handleMarkDone --', habit);
+    const today = new Date().toISOString();
+    const updateObj = {
+      datesCompleted: [...(habit.datesCompleted || []), today],
+    };
+    await dispatch(patchHabit(habit._id as string, updateObj));
+    dispatch(fetchHabits());
+  };
+
   const handleEdit = (habitId: string) => {
     console.log('-- handleEdit --', habitId);
   };
-  const handleDelete = (habitId: string) => {
+
+  const deleteConfirm = (habitId: string) => {
     console.log('-- handleDelete --', habitId);
     confirm({
       title: 'Are you sure you want to delete this habit?',
@@ -51,9 +80,9 @@ const HabitList: React.FC<Props> = ({ habits, handleDeleteHabit }: Props) => {
         renderItem={(habit: Habit) => (
           <HabitListItem
             habit={habit}
-            handleMarkDone={handleMarkDone}
+            handleMarkDone={() => handleMarkDone(habit)}
             handleEdit={handleEdit}
-            handleDelete={handleDelete}
+            handleDelete={deleteConfirm}
           />
         )}
       />

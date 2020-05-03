@@ -5,7 +5,7 @@ import styles from './Dashboard.module.scss';
 import CreateHabitForm from '../CreateHabitForm';
 // import { HabitNew } from '../CreateHabitForm/CreateHabitForm';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchHabits, createHabit, deleteHabit } from '../../../actions/habitActions';
+import { fetchHabits, createHabit } from '../../../actions/habitActions';
 import { RootState } from '../../../store/auth/types';
 import HabitList from '../HabitList';
 import { Habit } from '../../../interfaces/Habit';
@@ -55,16 +55,6 @@ const Dashboard: React.FC<Props> = ({ showCreateHabit, handleShowCreateHabit }: 
         console.error('ERROR -', error);
       } finally {
       }
-    } catch (error) {
-      console.error('ERROR -', error);
-    }
-  };
-
-  const handleDeleteHabit = async (habitId: string): Promise<void> => {
-    console.log('-- handleDeleteHabit --', habitId);
-    try {
-      await dispatch(deleteHabit(habitId));
-      dispatch(fetchHabits());
     } catch (error) {
       console.error('ERROR -', error);
     }
@@ -146,7 +136,7 @@ const Dashboard: React.FC<Props> = ({ showCreateHabit, handleShowCreateHabit }: 
           <CreateHabitForm form={form} />
         </Drawer>
 
-        <HabitList habits={habitsState?.habits} handleDeleteHabit={handleDeleteHabit} />
+        <HabitList habits={habitsState?.habits} />
       </div>
     </main>
   );
