@@ -12,6 +12,7 @@ interface Props {
   handleMarkDone: (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
   handleEdit: (habitId: string) => void;
   handleDelete: (habitId: string) => void;
+  handleToggleDone: (habit: Habit, date: Date) => void;
 }
 
 type HabitDropDownMenuTypes = 'edit' | 'delete';
@@ -21,6 +22,7 @@ const HabitListItem: React.FC<Props> = ({
   handleMarkDone,
   handleEdit,
   handleDelete,
+  handleToggleDone,
 }: Props) => {
   const handleMenuItemClick = (type: HabitDropDownMenuTypes, habitId: string) => {
     switch (type) {
@@ -72,7 +74,7 @@ const HabitListItem: React.FC<Props> = ({
         <List.Item.Meta
           avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
           title={<a href="https://ant.design">{habit.title}</a>}
-          description={<HabitListItemSchedule habit={habit} />}
+          description={<HabitListItemSchedule habit={habit} handleToggleDone={handleToggleDone} />}
         />
       </Skeleton>
     </List.Item>

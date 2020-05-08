@@ -6,6 +6,7 @@ import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { HabitListItem } from '../..';
 import { useDispatch } from 'react-redux';
 import { fetchHabits, deleteHabit, patchHabit } from '../../../actions/habitActions';
+import isDone from '../../../utils/habitUtils';
 
 const { confirm } = Modal;
 
@@ -42,6 +43,27 @@ const HabitList: React.FC<Props> = ({ habits }: Props) => {
     const updateObj = {
       datesCompleted: [...(habit.datesCompleted || []), today],
     };
+    await dispatch(patchHabit(habit._id as string, updateObj));
+    dispatch(fetchHabits());
+  };
+
+  const handleToggleDone = async (habit: Habit, date: Date) => {
+    console.log('-- handleToggleDone --', habit);
+    console.log('-- handleToggleDone --', date);
+    let updateObj;
+    if (isDone(habit, date)) {
+      const datesWithRemoved = habit.datesCompleted?.filter((val) => {
+        return new Date(val).toLocaleDateString() !== date.toLocaleDateString();
+      });
+      updateObj = {
+        datesCompleted: datesWithRemoved,
+      };
+    } else {
+      updateObj = {
+        datesCompleted: [...(habit.datesCompleted || []), date.toISOString()],
+      };
+    }
+
     await dispatch(patchHabit(habit._id as string, updateObj));
     dispatch(fetchHabits());
   };
@@ -83,6 +105,7 @@ const HabitList: React.FC<Props> = ({ habits }: Props) => {
             handleMarkDone={() => handleMarkDone(habit)}
             handleEdit={handleEdit}
             handleDelete={deleteConfirm}
+            handleToggleDone={handleToggleDone}
           />
         )}
       />

@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './HabitListItemSchedule.module.scss';
 import { Habit } from '../../../interfaces/Habit';
 import { CaretUpOutlined } from '@ant-design/icons';
 import { findDateAroundToday } from '../../../utils/dateUtils';
 import Badge from '../../utils/Badge';
 import isDone from '../../../utils/habitUtils';
+// import useLongPress from '../../../hooks/useLongPress';
 
 interface Props {
   habit: Habit;
+  handleToggleDone: (habit: Habit, date: Date) => void;
 }
 
 enum Days {
@@ -20,8 +22,22 @@ enum Days {
   'Sat' = 6,
 }
 
-const HabitListItemSchedule: React.FC<Props> = ({ habit }: Props) => {
+const HabitListItemSchedule: React.FC<Props> = ({ habit, handleToggleDone }: Props) => {
+  const [startLongPress, setStartLongPress] = useState(false);
+  const [clickedDate, setClickedDate] = useState<Date | null>(null);
   const todayDay = new Date().getDay();
+  const longCLickTime = 1000;
+  const handleLongPress = (dateClicked: Date, habit: Habit) => {
+    handleToggleDone(habit, dateClicked);
+
+    console.log('WORKEDDDDDD', dateClicked);
+    if (isDone(habit, dateClicked || undefined)) {
+      // call to remove completed day from array
+    } else {
+      // call to add dat to completed array
+    }
+  };
+  // const backspaceLongPress = useLongPress(handleLongPress, 1000, { habit });
 
   const daysWithDates = [
     { day: 0, date: findDateAroundToday(todayDay, 0) },
@@ -33,10 +49,32 @@ const HabitListItemSchedule: React.FC<Props> = ({ habit }: Props) => {
     { day: 6, date: findDateAroundToday(todayDay, 6) },
   ];
 
+  useEffect(() => {
+    let timerId: any;
+    if (startLongPress) {
+      timerId = setTimeout(() => {
+        handleLongPress(clickedDate as Date, habit);
+      }, longCLickTime);
+    } else {
+      clearTimeout(timerId);
+    }
+
+    return () => {
+      clearTimeout(timerId);
+    };
+  }, [handleLongPress, longCLickTime, startLongPress]);
+
   const ShowBadge = (item: typeof daysWithDates[0]) => {
     // if (item.day === todayDay && habit.scheduleDays?.includes(item.day)) {
     return (
-      <Badge show={(item.day === todayDay && habit.scheduleDays?.includes(item.day)) || false}>
+      <Badge
+        show={
+          (item.day === todayDay &&
+            habit.scheduleDays?.includes(item.day) &&
+            !isDone(habit, item.date || undefined)) ||
+          false
+        }
+      >
         <div
           className={`${styles.scheduleItem} ${
             habit.scheduleDays?.includes(item.day) && styles.dayScheduled
@@ -78,9 +116,29 @@ const HabitListItemSchedule: React.FC<Props> = ({ habit }: Props) => {
       {daysWithDates.map((item: typeof daysWithDates[0]) => {
         console.log('INSIDE: ', item);
         return (
-          <div className={styles.dayItemContainer}>
+          <div
+            onMouseDown={() => {
+              setStartLongPress(true);
+              setClickedDate(item.date);
+            }}
+            onMouseUp={() => {
+              setStartLongPress(false);
+            }}
+            onMouseLeave={() => {
+              setStartLongPress(false);
+            }}
+            onTouchStart={() => {
+              setStartLongPress(true);
+              setClickedDate(item.date);
+            }}
+            onTouchEnd={() => {
+              setStartLongPress(false);
+            }}
+            key={item.day}
+            className={styles.dayItemContainer}
+          >
             {ShowBadge(item)}
-            {item.date?.toLocaleDateString().split('/')[1]}
+            {/* {item.date?.toLocaleDateString().split('/')[1]} */}
             {item.day === todayDay && (
               <div className={styles.todayDayIcon}>
                 <CaretUpOutlined />
