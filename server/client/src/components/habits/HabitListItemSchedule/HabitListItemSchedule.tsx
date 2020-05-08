@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from './HabitListItemSchedule.module.scss';
 import { Habit } from '../../../interfaces/Habit';
-import { CaretUpOutlined } from '@ant-design/icons';
+import { CaretUpOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { findDateAroundToday } from '../../../utils/dateUtils';
 import Badge from '../../utils/Badge';
 import isDone from '../../../utils/habitUtils';
@@ -64,27 +64,36 @@ const HabitListItemSchedule: React.FC<Props> = ({ habit, handleToggleDone }: Pro
     };
   }, [handleLongPress, longCLickTime, startLongPress]);
 
+  const isScheduledDay = (day: number) => {
+    return habit.scheduleDays?.includes(day);
+  };
+
   const ShowBadge = (item: typeof daysWithDates[0]) => {
     // if (item.day === todayDay && habit.scheduleDays?.includes(item.day)) {
     return (
       <Badge
         show={
           (item.day === todayDay &&
-            habit.scheduleDays?.includes(item.day) &&
+            isScheduledDay(item.day) &&
             !isDone(habit, item.date || undefined)) ||
           false
         }
       >
         <div
-          className={`${styles.scheduleItem} ${
-            habit.scheduleDays?.includes(item.day) && styles.dayScheduled
-          } ${item.day === todayDay && styles.todayDay} ${
-            isDone(habit, item.date || undefined) && styles.dayCompleted
-          }`}
+          className={`${styles.scheduleItem} ${isScheduledDay(item.day) && styles.dayScheduled} ${
+            item.day === todayDay && styles.todayDay
+          } ${isDone(habit, item.date || undefined) && styles.dayCompleted}`}
         >
           {/* {Days[item]} - {new Date().getDay()} */}
           {Days[item.day]}
         </div>
+        {isDone(habit, item.date || undefined) && <CheckOutlined />}
+        {isScheduledDay(item.day) &&
+          !isDone(habit, item.date || undefined) &&
+          item.date &&
+          new Date(item.date.toLocaleDateString()) < new Date(new Date().toLocaleDateString()) && (
+            <CloseOutlined />
+          )}
       </Badge>
     );
     // } else {
