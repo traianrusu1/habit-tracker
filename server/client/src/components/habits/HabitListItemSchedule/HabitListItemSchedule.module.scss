@@ -17,6 +17,23 @@
     background-color: #ffc250c4;
   }
 
+  .dayCompleted {
+    background-color: rgb(141, 238, 141);
+    // :root {
+    //   --borderWidth: 7px;
+    //   --height: 24px;
+    //   --width: 12px;
+    //   --borderColor: #78b13f;
+    // }
+
+    // display: inline-block;
+    // transform: rotate(45deg);
+    // height: var(--height);
+    // width: var(--width);
+    // border-bottom: var(--borderWidth) solid var(--borderColor);
+    // border-right: var(--borderWidth) solid var(--borderColor);
+  }
+
   .todayDay {
     border: 2px solid rgb(34, 34, 34);
   }

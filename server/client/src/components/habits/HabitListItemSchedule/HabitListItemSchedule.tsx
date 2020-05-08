@@ -2,7 +2,8 @@ import React from 'react';
 import styles from './HabitListItemSchedule.module.scss';
 import { Habit } from '../../../interfaces/Habit';
 import { CaretUpOutlined } from '@ant-design/icons';
-import { Badge } from 'antd';
+import { findDateAroundToday } from '../../../utils/dateUtils';
+import Badge from '../../utils/Badge';
 
 interface Props {
   habit: Habit;
@@ -20,45 +21,73 @@ enum Days {
 
 const HabitListItemSchedule: React.FC<Props> = ({ habit }: Props) => {
   const todayDay = new Date().getDay();
-  console.log('VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV');
-  console.log('todayDay: ', todayDay);
 
-  const ShowBadge = (item: number) => {
-    if (item === todayDay && habit.scheduleDays?.includes(item)) {
-      return (
-        <Badge count="!">
-          <div
-            className={`${styles.scheduleItem} ${
-              habit.scheduleDays?.includes(item) && styles.dayScheduled
-            } ${item === todayDay && styles.todayDay}`}
-          >
-            {/* {Days[item]} - {new Date().getDay()} */}
-            {Days[item]}
-          </div>
-        </Badge>
-      );
-    }
+  const daysWithDates = [
+    { day: 0, date: findDateAroundToday(todayDay, 0) },
+    { day: 1, date: findDateAroundToday(todayDay, 1) },
+    { day: 2, date: findDateAroundToday(todayDay, 2) },
+    { day: 3, date: findDateAroundToday(todayDay, 3) },
+    { day: 4, date: findDateAroundToday(todayDay, 4) },
+    { day: 5, date: findDateAroundToday(todayDay, 5) },
+    { day: 6, date: findDateAroundToday(todayDay, 6) },
+  ];
 
+  const ShowBadge = (item: typeof daysWithDates[0]) => {
+    // if (item.day === todayDay && habit.scheduleDays?.includes(item.day)) {
     return (
-      <div
-        className={`${styles.scheduleItem} ${
-          habit.scheduleDays?.includes(item) && styles.dayScheduled
-        } ${item === todayDay && styles.todayDay}`}
-      >
-        {/* {Days[item]} - {new Date().getDay()} */}
-        {Days[item]}
-      </div>
+      <Badge show={(item.day === todayDay && habit.scheduleDays?.includes(item.day)) || false}>
+        <div
+          className={`${styles.scheduleItem} ${
+            habit.scheduleDays?.includes(item.day) && styles.dayScheduled
+          } ${item.day === todayDay && styles.todayDay} ${
+            habit.datesCompleted?.find((date) => {
+              if (item.date) {
+                return (
+                  new Date(item.date).toLocaleDateString() === new Date(date).toLocaleDateString()
+                );
+              }
+              return false;
+            }) && styles.dayCompleted
+          }`}
+        >
+          {/* {Days[item]} - {new Date().getDay()} */}
+          {Days[item.day]}
+        </div>
+      </Badge>
     );
+    // } else {
+    //   return (
+    //     <div
+    //       className={`${styles.scheduleItem} ${
+    //         habit.scheduleDays?.includes(item.day) && styles.dayScheduled
+    //       } ${item.day === todayDay && styles.todayDay} ${
+    //         habit.datesCompleted?.find((date) => {
+    //           if (item.date) {
+    //             return (
+    //               new Date(item.date).toLocaleDateString() === new Date(date).toLocaleDateString()
+    //             );
+    //           }
+    //           return false;
+    //         }) && styles.dayCompleted
+    //       }`}
+    //     >
+    //       {/* {Days[item]} - {new Date().getDay()} */}
+    //       {Days[item.day]}
+    //       <CheckOutlined />
+    //     </div>
+    //   );
+    // }
   };
 
   return (
     <div className={styles.habitListItemSchedule}>
-      {[0, 1, 2, 3, 4, 5, 6].map((item: number) => {
+      {daysWithDates.map((item: typeof daysWithDates[0]) => {
         console.log('INSIDE: ', item);
         return (
           <div className={styles.dayItemContainer}>
             {ShowBadge(item)}
-            {item === todayDay && (
+            {item.date?.toLocaleDateString().split('/')[1]}
+            {item.day === todayDay && (
               <div className={styles.todayDayIcon}>
                 <CaretUpOutlined />
               </div>

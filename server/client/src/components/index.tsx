@@ -1,4 +1,5 @@
 /* PLOP_INJECT_IMPORT */
+import Badge from './utils/Badge';
 import HabitListItemSchedule from './habits/HabitListItemSchedule';
 import Layout from './layout/Layout';
 import HabitListItem from './habits/HabitListItem';
@@ -10,6 +11,7 @@ import Header from "./layout/Header";
 
 export {
   /* PLOP_INJECT_EXPORT */
+	Badge,
 	HabitListItemSchedule,
 	Layout,
 	HabitListItem,
