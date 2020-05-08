@@ -4,6 +4,7 @@ import { Habit } from '../../../interfaces/Habit';
 import { CaretUpOutlined } from '@ant-design/icons';
 import { findDateAroundToday } from '../../../utils/dateUtils';
 import Badge from '../../utils/Badge';
+import isDone from '../../../utils/habitUtils';
 
 interface Props {
   habit: Habit;
@@ -40,14 +41,7 @@ const HabitListItemSchedule: React.FC<Props> = ({ habit }: Props) => {
           className={`${styles.scheduleItem} ${
             habit.scheduleDays?.includes(item.day) && styles.dayScheduled
           } ${item.day === todayDay && styles.todayDay} ${
-            habit.datesCompleted?.find((date) => {
-              if (item.date) {
-                return (
-                  new Date(item.date).toLocaleDateString() === new Date(date).toLocaleDateString()
-                );
-              }
-              return false;
-            }) && styles.dayCompleted
+            isDone(habit, item.date || undefined) && styles.dayCompleted
           }`}
         >
           {/* {Days[item]} - {new Date().getDay()} */}

@@ -5,6 +5,7 @@ import { List, Button, Dropdown, Skeleton, Avatar, Menu } from 'antd';
 import { EllipsisOutlined, EditOutlined, DeleteOutlined, CheckOutlined } from '@ant-design/icons';
 import { ClickParam } from 'antd/lib/menu';
 import HabitListItemSchedule from '../HabitListItemSchedule';
+import isDone from '../../../utils/habitUtils';
 
 interface Props {
   habit: Habit;
@@ -58,6 +59,7 @@ const HabitListItem: React.FC<Props> = ({
           onClick={handleMarkDone}
           icon={<CheckOutlined />}
           size="large"
+          disabled={isDone(habit)}
         ></Button>,
         <Dropdown trigger={['click']} overlay={menu} placement="bottomRight">
           <Button type="link">
