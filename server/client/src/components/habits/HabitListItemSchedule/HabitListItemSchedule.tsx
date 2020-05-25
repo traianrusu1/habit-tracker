@@ -87,12 +87,12 @@ const HabitListItemSchedule: React.FC<Props> = ({ habit, handleToggleDone }: Pro
           {/* {Days[item]} - {new Date().getDay()} */}
           {Days[item.day]}
         </div>
-        {isDone(habit, item.date || undefined) && <CheckOutlined />}
+        {isDone(habit, item.date || undefined) && <CheckOutlined className={styles.checkIcon} />}
         {isScheduledDay(item.day) &&
           !isDone(habit, item.date || undefined) &&
           item.date &&
           new Date(item.date.toLocaleDateString()) < new Date(new Date().toLocaleDateString()) && (
-            <CloseOutlined />
+            <CloseOutlined className={styles.xIcon} />
           )}
       </Badge>
     );
